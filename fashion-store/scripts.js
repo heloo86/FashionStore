@@ -1,11 +1,11 @@
-const htmlElement = document.documentElement;
+
 const themeButton = document.getElementById('theme-toggle');
 
 function toggleTheme (){
-   const currentTheme = htmlElement.getAttribute('data-theme');
+   const currentTheme = document.documentElement.getAttribute('data-theme');
    const newTheme = currentTheme === 'dark' ?  'light' : 'dark';
 
-   htmlElement.setAttribute('data-theme', newTheme);
+   document.documentElement.setAttribute('data-theme', newTheme);
 
    localStorage.setItem('theme', newTheme);
 }
@@ -68,6 +68,9 @@ function displayProducts(products, place) {
     });
 
 }
+
+fetchProducts();
+
 
 
 
