@@ -10,12 +10,13 @@ function toggleTheme (){
    localStorage.setItem('theme', newTheme);
 }
 
-// Carrega produtos em Nossos Destaques ---------------------------------------------------------
 
 themeButton.addEventListener('click', toggleTheme);
 
+// Carrega produtos em Nossos Destaques ---------------------------------------------------------
 
 const featuredList = document.getElementById('featured-list');
+const productList = document.getElementById('products-list');
 
 async function fetchProducts() {
 
@@ -27,20 +28,26 @@ async function fetchProducts() {
         }
 
         const products = await response.json();
-        displayProducts(products);
+
+        if (featuredList) {
+            const topProducts = products.slice(0, 5);
+            displayProducts(topProducts, featuredList);
+        }
+
+        if(productList){
+            displayProducts(products, productList);
+        }
 
     } catch(error){
         console.error('Erro: ', error)
     }
 }
 
-function displayProducts(products) {
+function displayProducts(products, place) {
 
-    featuredList.innerHTML = '';
+    place.innerHTML = '';
 
-    const topProducts = products.slice(0,5);
-
-    topProducts.forEach(product => {
+    products.forEach(product => {
         const card = document.createElement('article');
         card.className = 'card placeholder-card';
 
@@ -57,11 +64,11 @@ function displayProducts(products) {
             </div>
           </div>`;
 
-          featuredList.appendChild(card);
+          place.appendChild(card);
     });
 
- 
-
 }
-   fetchProducts();
+
+
+
 
